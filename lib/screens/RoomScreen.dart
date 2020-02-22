@@ -36,8 +36,9 @@ class _RoomScreenState extends State<RoomScreen> {
       if (airConditionerTemperatureVal != 32) airConditionerTemperatureVal++;
       _theAirConditioner.moreAttributes['temperature'] =
           airConditionerTemperatureVal;
-      //airConditionerTemp(_theAirConditioner);
+      airConditionerTemp(_theAirConditioner);
     });
+
   }
 
   void riseDownTemperature() {
@@ -45,7 +46,7 @@ class _RoomScreenState extends State<RoomScreen> {
       if (airConditionerTemperatureVal != 16) airConditionerTemperatureVal--;
       _theAirConditioner.moreAttributes['temperature'] =
           airConditionerTemperatureVal;
-      //airConditionerTemp(_theAirConditioner);
+      airConditionerTemp(_theAirConditioner);
     });
   }
 
@@ -70,7 +71,7 @@ class _RoomScreenState extends State<RoomScreen> {
           "created": null,
           "properties": {
             "temperature": theAirConditioner.moreAttributes['temperature'],
-            //"state": theAirConditioner.moreAttributes['state'],
+            "state": theAirConditioner.moreAttributes['state'],
           }
         }));
   }
