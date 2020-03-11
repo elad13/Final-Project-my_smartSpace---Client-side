@@ -31,17 +31,20 @@ class _RoomScreenState extends State<RoomScreen> {
 
   int airConditionerTemperatureVal = 24;
 
-  void riseUpTemperature() {
+  //void riseUpTemperature() {
+  Future<void> riseUpTemperature() async{
     setState(() {
       if (airConditionerTemperatureVal != 32) airConditionerTemperatureVal++;
       _theAirConditioner.moreAttributes['temperature'] =
           airConditionerTemperatureVal;
       airConditionerTemp(_theAirConditioner);
+      //print('${_theAirConditioner.moreAttributes['temperature']}');
     });
 
   }
 
-  void riseDownTemperature() {
+  //void riseDownTemperature(){
+  Future<void> riseDownTemperature() async{
     setState(() {
       if (airConditionerTemperatureVal != 16) airConditionerTemperatureVal--;
       _theAirConditioner.moreAttributes['temperature'] =
@@ -131,6 +134,7 @@ class _RoomScreenState extends State<RoomScreen> {
       airConditionerSwitchVal = true;
       airConditionerTemperatureVal =
           int.parse(_theAirConditioner.moreAttributes['temperature']);
+      print(airConditionerTemperatureVal);
     } else {
       airConditionerSwitchVal = false;
       airConditionerTemperatureVal = 24;
@@ -229,7 +233,7 @@ class _RoomScreenState extends State<RoomScreen> {
             new FloatingActionButton(
               heroTag: 'riseUpButton',
               onPressed: () async {
-                riseUpTemperature;
+                riseUpTemperature();
               },
               child: new Icon(
                 Icons.keyboard_arrow_up, //Icons.add,
@@ -238,12 +242,14 @@ class _RoomScreenState extends State<RoomScreen> {
               backgroundColor: Colors.lightBlue[900],
               mini: true,
             ),
+            //if (_theAirConditioner.moreAttributes['temperature'] == null)
             new Text('$airConditionerTemperatureVal',
+                //new Text('${_theAirConditioner.moreAttributes['temperature']}',
                 style: new TextStyle(fontSize: 25.0)),
             new FloatingActionButton(
               heroTag: 'riseDownButton',
               onPressed: () async {
-                riseDownTemperature;
+                riseDownTemperature();
               },
               child: new Icon(
                 Icons
