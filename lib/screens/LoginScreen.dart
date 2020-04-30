@@ -21,15 +21,13 @@ Future<User> login(String userEmail, String userPassword) async {
   var result, convert, name;
 
   String loginUrl =
-      //'https://smartspace.cfapps.io/smartspace/users/login/$userPassword/$userEmail';
       'https://smart-space-server.herokuapp.com/smartspace/users/login/$userPassword/$userEmail';
   result = await http
       .get(Uri.encodeFull(loginUrl), headers: {"Accept": "application/json"});
   convert = json.decode(result.body);
-name = convert['username'];
+  name = convert['username'];
   if (name != null) {
-    theUser.userEmail =
-        convert['key']['email']; //userEmail; //convert['userEmail'];
+    theUser.userEmail = convert['key']['email'];
     theUser.userName = convert['username'];
     theUser.userAvatar = convert['avatar'];
     theUser.userRole = convert['role'];
@@ -44,6 +42,7 @@ class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
+
 class _LoginScreenState extends State<LoginScreen> {
   User theUser; // = User(userName: 'Guest'); //new User.empty(); //
   String userEmail, userPassword;

@@ -66,11 +66,13 @@ class _CheckinScreenState extends State<CheckinScreen> {
   }
 
   Widget build(BuildContext context) {
-        var welcome = Padding(
+    var welcome = Padding(
       padding: EdgeInsets.all(8.0),
-      child: Text(
-        'Welcome ' + '${theUser.userName}',
-        style: TextStyle(fontSize: 28.0, color: Colors.lightBlue[900]),
+      child: Center(
+        child: Text(
+          'Welcome ' + '${theUser.userName}',
+          style: TextStyle(fontSize: 28.0, color: Colors.lightBlue[900]),
+        ),
       ),
     );
 
