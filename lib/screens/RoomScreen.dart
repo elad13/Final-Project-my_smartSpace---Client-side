@@ -32,7 +32,7 @@ class _RoomScreenState extends State<RoomScreen> {
   int airConditionerTemperatureVal = 24;
 
   //void riseUpTemperature() {
-  Future<void> riseUpTemperature() async{
+  Future<void> riseUpTemperature() async {
     setState(() {
       if (airConditionerTemperatureVal != 32) airConditionerTemperatureVal++;
       _theAirConditioner.moreAttributes['temperature'] =
@@ -40,11 +40,10 @@ class _RoomScreenState extends State<RoomScreen> {
       airConditionerTemp(_theAirConditioner);
       //print('${_theAirConditioner.moreAttributes['temperature']}');
     });
-
   }
 
   //void riseDownTemperature(){
-  Future<void> riseDownTemperature() async{
+  Future<void> riseDownTemperature() async {
     setState(() {
       if (airConditionerTemperatureVal != 16) airConditionerTemperatureVal--;
       _theAirConditioner.moreAttributes['temperature'] =

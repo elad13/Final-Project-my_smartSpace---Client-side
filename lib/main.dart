@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import './screens/LoginScreen.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,20 +12,19 @@ final logoField = Hero(
   ),
 );
 
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => new _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-@override
+  @override
   Widget build(BuildContext context) {
     /*ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1334, allowFontScaling: true);*/
     //return new Scaffold();
-    return MaterialApp(
+    var materialApp = MaterialApp(
       title: 'smartSpace',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -35,5 +33,6 @@ class _MyAppState extends State<MyApp> {
       ),
       home: LoginScreen(),
     );
+    return materialApp;
   }
 }

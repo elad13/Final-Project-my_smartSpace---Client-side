@@ -2,21 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../objects/User.dart';
-import '../objects/Action.dart';
 
 import '../main.dart';
 import './RegisterScreen.dart';
-import './HomeScreen.dart';
 
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'CheckinScreen.dart';
 import 'DoorsScreen.dart';
 
-Future<User> login(String userEmail, String userPassword) async {
+Future<String> CreateAlertDialog(BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("The username or the password is incorrect."),
+          actions: <Widget>[
+            MaterialButton(
+              elevation: 5.0,
+              child: Text("ok"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
+            )
+          ],
+        );
+      });
+}
+
+Future<User> login(
+    String userEmail, String userPassword, BuildContext context) async {
   User theUser = new User.empty();
   var result, convert, name;
 
@@ -24,14 +44,22 @@ Future<User> login(String userEmail, String userPassword) async {
       'https://smart-space-server.herokuapp.com/smartspace/users/login/$userPassword/$userEmail';
   result = await http
       .get(Uri.encodeFull(loginUrl), headers: {"Accept": "application/json"});
-  convert = json.decode(result.body);
-  name = convert['username'];
-  if (name != null) {
-    theUser.userEmail = convert['key']['email'];
-    theUser.userName = convert['username'];
-    theUser.userAvatar = convert['avatar'];
-    theUser.userRole = convert['role'];
-    theUser.isCheckin = false;
+
+  if (result.statusCode == 200) {
+    convert = json.decode(result.body);
+
+    name = convert['username'];
+    if (name != null) {
+      theUser.userEmail = convert['key']['email'];
+      theUser.userName = convert['username'];
+      theUser.userAvatar = convert['avatar'];
+      theUser.userRole = convert['role'];
+      theUser.isCheckin = false;
+    }
+  } else {
+    CreateAlertDialog(context);
+    theUser = null;
+    throw Exception('Failed input details.');
   }
 
   return theUser;
@@ -44,8 +72,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  User theUser; // = User(userName: 'Guest'); //new User.empty(); //
+  User theUser;
   String userEmail, userPassword;
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
@@ -55,7 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var emailField = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      //onChanged: (val) => theUser.userEmail = val,
       onChanged: (val) => userEmail = val,
       decoration: InputDecoration(
         hintText: 'Email',
@@ -67,7 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var passwordField = TextFormField(
       autofocus: false,
       obscureText: true,
-      //onChanged: (val) => theUser.userPassword = val,
       onChanged: (val) => userPassword = val,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -83,13 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          //login(theUser.userEmail, theUser.userPassword);
-          theUser = await login(userEmail, userPassword);
-          //CheckInScreen(user: theUser);
+          theUser = await login(userEmail, userPassword, context);
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => DoorsScreen(theUser)), //HomeScreen()),
+            MaterialPageRoute(builder: (context) => DoorsScreen(theUser)),
           );
         },
         padding: EdgeInsets.all(12),
@@ -255,9 +279,9 @@ class _LoginScreenState extends State<LoginScreen> {
             passwordField,
             SizedBox(height: 15.0),
             loginButton,
-            forgotLabel,
-            orLabel,
-            googleFacebookLoginButton,
+            //forgotLabel,
+            //orLabel,
+            //googleFacebookLoginButton,
             createAccountButton,
           ],
         ),
