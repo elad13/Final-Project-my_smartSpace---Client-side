@@ -39,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          //theLivingRoom = await getRoom(theUser.userEmail, "Living Room");
           theLivingRoom = await getRoom(
               theUser.userEmail, theDoor.moreAttributes['living room']);
           Navigator.push(
@@ -61,10 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          //theBedroom = await getRoom(theUser.userEmail, "Bedroom");
           theBedroom = await getRoom(
               theUser.userEmail, theDoor.moreAttributes['bedroom']);
-          //print(theBedroom.moreAttributes);
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -84,11 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          //userPressedCheckIn = true;
           theUser.isCheckin = false;
           await checkOut(theUser, theDoor);
-          //Navigator.of(context).pushNamed(NFCReader.tag);
-          //Navigator.of(context).pushNamed(HomeScreen.tag);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => DoorsScreen(theUser)),

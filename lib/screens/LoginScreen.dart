@@ -66,7 +66,6 @@ Future<User> login(
 }
 
 class LoginScreen extends StatefulWidget {
-  //static String tag = 'loginScreen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -182,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: EdgeInsets.only(top: 10.0, right: 40.0),
       child: GestureDetector(
         onTap: () {},
-        //onTap: () => showInSnackBar("Facebook button pressed"),
         child: Container(
           padding: const EdgeInsets.all(15.0),
           decoration: new BoxDecoration(
@@ -201,7 +199,6 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: EdgeInsets.only(top: 10.0),
       child: GestureDetector(
         onTap: () {},
-        //onTap: () => showInSnackBar("Google button pressed"),
         child: Container(
           padding: const EdgeInsets.all(15.0),
           decoration: new BoxDecoration(
@@ -250,7 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
             context,
             MaterialPageRoute(builder: (context) => RegisterScreen()),
           );
-          //Navigator.of(context).pushNamed(SignUpScreen.tag);
         },
       ),
     );
@@ -266,7 +262,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return new Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: true,
-      //drawer: AppDrawer(theUser: theUser),
       body: Center(
         child: ListView(
           shrinkWrap: true,

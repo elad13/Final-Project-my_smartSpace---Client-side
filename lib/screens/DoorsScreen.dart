@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'HomeScreen.dart';
 
 Future<List<String>> getDoors(String userEmail) async {
-  //List<Elementt> doors; // = new Elementt.empty();
   List<String> doorsID = [];
 
   var result, convert, elementType, index, i = 0;
@@ -25,7 +24,6 @@ Future<List<String>> getDoors(String userEmail) async {
   for (index in convert) {
     elementType = index['elementType'];
     if (elementType == 'Door') {
-      //doors[index] = new Elementt.empty();
       doorsID[i] = index['key']['id'];
       i++;
     }
@@ -49,7 +47,7 @@ class _DoorsScreenState extends State<DoorsScreen> {
   List<Elementt> _allDoors = [];
   Elementt _currentDoor;
   List<DropdownMenuItem<Elementt>> _dropDownMenuItems;
-  List dataList = List(); //edited line
+  List dataList = List();
 
   _DoorsScreenState(User theUser) {
     this.theUser = theUser;
@@ -65,10 +63,8 @@ class _DoorsScreenState extends State<DoorsScreen> {
     result = await http
         .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
     convert = json.decode(result.body);
-    //print(convert);
     List<Elementt> doors =
         (convert as List).map((data) => Elementt.fromJson(data)).toList();
-    //print(doors[0].elementID);
     for (index in doors) {
       allDoors.add(index);
     }
@@ -76,19 +72,17 @@ class _DoorsScreenState extends State<DoorsScreen> {
     setState(() {
       dataList = allDoors;
     });
-    //print(allDoors[0].elementID);
     return allDoors;
   }
 
-@override
+  @override
   void initState() {
     super.initState();
     this.getAllDoors(theUser.userEmail);
   }
 
-List<DropdownMenuItem<Elementt>> getDropDownMenuItems() {
-  dataList.map((item) {
-      /*=> door.add(*/
+  List<DropdownMenuItem<Elementt>> getDropDownMenuItems() {
+    dataList.map((item) {
       return new DropdownMenuItem(value: item, child: new Text(item.elementID));
     }).toList();
   }
@@ -115,16 +109,14 @@ List<DropdownMenuItem<Elementt>> getDropDownMenuItems() {
               items: dataList.map((item) {
                 return new DropdownMenuItem(
                   child: new Text(item.elementID),
-                  value: item, //['key']['id'].toString(),
+                  value: item,
                 );
               }).toList(),
-              //getDropDownMenuItems(),
-              //_dropDownMenuItems,
               onChanged: (newVal) {
                 setState(() {
                   _currentDoor = newVal;
                 });
-              }, //changedDropDownItem,
+              },
             ),
             SizedBox(
               height: 20.0,

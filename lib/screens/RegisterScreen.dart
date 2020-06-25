@@ -7,8 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-const url = //'https://smartspace.cfapps.io/smartspace/users';
-    'https://smart-space-server.herokuapp.com/smartspace/users';
+const url = 'https://smart-space-server.herokuapp.com/smartspace/users';
 Future<User> addNewUser(
     String name, String email, String avatar, String role) async {
   User theUser = new User(
@@ -51,7 +50,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       keyboardType: TextInputType.text,
       autofocus: false,
       onChanged: (val) => userName = val,
-      //onChanged: (val) => theUser.userName = val,
       decoration: InputDecoration(
         hintText: 'user name',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -63,7 +61,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       onChanged: (val) => userEmail = val,
-      //onChanged: (val) => theUser.userEmail = val,
       decoration: InputDecoration(
         hintText: 'Email',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -73,7 +70,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var avatarField = TextFormField(
       autofocus: false,
       onChanged: (val) => userAvatar = val,
-      //onChanged: (val) => theUser.userAvatar = val,
       decoration: InputDecoration(
         hintText: 'avatar',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -84,7 +80,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     var roleField = TextFormField(
       autofocus: false,
       onChanged: (val) => userRole = val,
-      //onChanged: (val) => theUser.userRole = val,
       decoration: InputDecoration(
         hintText: 'role(PLAYER)',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -112,7 +107,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: true,
-      //drawer: AppDrawer(theUser: newUser),
       body: Center(
         child: ListView(
           shrinkWrap: true,

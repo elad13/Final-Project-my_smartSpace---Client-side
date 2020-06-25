@@ -14,8 +14,6 @@ import 'LoginScreen.dart';
 
 Future<void> NfcCheckIn(
     String userEmail, Elementt theDoor, String nfcUrl) async {
-  //String url = "'" + nfcUrl + "'";
-  //print("1" + nfcUrl);
   var result = await http.post(Uri.encodeFull(nfcUrl),
       headers: {"Content-type": "application/json"},
       body: json.encode({
@@ -29,24 +27,13 @@ Future<void> NfcCheckIn(
 }
 
 Future<void> checkIn(String userEmail, Elementt theDoor) async {
-  /*String nfcUrl = 'null';
-  FlutterNfcReader.read().then((response) {
-    print(response.content);
-    nfcUrl = "'" + response.content + "'";
-    //print(nfcUrl);
-  });*/
-
-  String url = //'https://smartspace.cfapps.io/smartspace/actions';
-      'https://smart-space-server.herokuapp.com/smartspace/actions';
+  String url = 'https://smart-space-server.herokuapp.com/smartspace/actions';
   var result = await http.post(Uri.encodeFull(url),
       headers: {"Content-type": "application/json"},
       body: json.encode({
         "actionKey": {"id": null, "smartspace": null},
         "element": {"id": theDoor.elementID, "smartspace": "smartSpaceProject"},
-        "player": {
-          "smartspace": "smartSpaceProject",
-          "email": userEmail //'${theUser.userEmail}' //"eladm1991@gmail.com"
-        },
+        "player": {"smartspace": "smartSpaceProject", "email": userEmail},
         "type": "CheckIn",
         "created": null,
         "properties": null
@@ -54,8 +41,7 @@ Future<void> checkIn(String userEmail, Elementt theDoor) async {
 }
 
 Future<void> checkOut(User theUser, Elementt theDoor) async {
-  String url = //'https://smartspace.cfapps.io/smartspace/actions';
-      'https://smart-space-server.herokuapp.com/smartspace/actions';
+  String url = 'https://smart-space-server.herokuapp.com/smartspace/actions';
   var result = await http.post(Uri.encodeFull(url),
       headers: {"Content-type": "application/json"},
       body: json.encode({
@@ -63,7 +49,7 @@ Future<void> checkOut(User theUser, Elementt theDoor) async {
         "element": {"id": theDoor.elementID, "smartspace": "smartSpaceProject"},
         "player": {
           "smartspace": "smartSpaceProject",
-          "email": theUser.userEmail //"eladm1991@gmail.com"
+          "email": theUser.userEmail
         },
         "type": "CheckOut",
         "created": null,
@@ -83,8 +69,8 @@ class CheckinScreen extends StatefulWidget {
 }
 
 class _CheckinScreenState extends State<CheckinScreen> {
-  String _tagData = 'Unknown'; //try NFC
-  String nfcUrl; // = 'null';
+  String _tagData = 'Unknown';
+  String nfcUrl;
 
   @override
   User theUser;
@@ -105,16 +91,6 @@ class _CheckinScreenState extends State<CheckinScreen> {
       ),
     );
 
-    /*FlutterNfcReader.read().then((response) {
-      print("1");
-      nfcUrl = response.content;
-      //nfcUrl.split("'");
-      print("2");
-      print(nfcUrl);
-      print("3");
-      print(nfcUrl.substring(7));
-    });*/
-
     var nfcButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: RaisedButton(
@@ -122,32 +98,17 @@ class _CheckinScreenState extends State<CheckinScreen> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () async {
-          //print('hi');
           await FlutterNfcReader.read().then((response) {
             nfcUrl = response.content;
             print(nfcUrl);
             print("*");
             print(nfcUrl.substring(7));
           });
-          /*FlutterNfcReader.read().then((response) {
-            print(response.content);
-            nfcUrl = "'" + response.content + "'";
-          });*/
-          //try NFC
-          /*String tagData;
-          // Platform messages may fail, so we use a try/catch PlatformException.
-          try {
-            _tagData = await Nfc.readTag;
-          } on PlatformException  {
-            _tagData = 'Failed to read NFC tag';
-          }
-          //_tagData = await Nfc.readTag;
-          print(_tagData);*/
+
           theUser.isCheckin = true;
           await NfcCheckIn(theUser.userEmail, theDoor, nfcUrl.substring(7));
           print('${theUser.userEmail}');
-          //Navigator.of(context).pushNamed(NFCReader.tag);
-          //Navigator.of(context).pushNamed(HomeScreen.tag);
+
           Navigator.push(
             context,
             MaterialPageRoute(

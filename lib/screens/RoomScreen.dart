@@ -23,7 +23,7 @@ class _RoomScreenState extends State<RoomScreen> {
   User theUser;
   Elementt theRoom;
   Elementt _theLamp, _theShutter, _theAirConditioner;
-  List dataListElements = List(); //edited line
+  List dataListElements = List();
 
   bool lampSwitchVal = false;
   bool shutterSwitchVal = false;
@@ -31,18 +31,15 @@ class _RoomScreenState extends State<RoomScreen> {
 
   int airConditionerTemperatureVal = 24;
 
-  //void riseUpTemperature() {
   Future<void> riseUpTemperature() async {
     setState(() {
       if (airConditionerTemperatureVal != 32) airConditionerTemperatureVal++;
       _theAirConditioner.moreAttributes['temperature'] =
           airConditionerTemperatureVal;
       airConditionerTemp(_theAirConditioner);
-      //print('${_theAirConditioner.moreAttributes['temperature']}');
     });
   }
 
-  //void riseDownTemperature(){
   Future<void> riseDownTemperature() async {
     setState(() {
       if (airConditionerTemperatureVal != 16) airConditionerTemperatureVal--;
@@ -56,6 +53,7 @@ class _RoomScreenState extends State<RoomScreen> {
     this.theUser = theUser;
     this.theRoom = theRoom;
   }
+
   Future<void> airConditionerTemp(Elementt theAirConditioner) async {
     var result = await http.post(Uri.encodeFull(actionUrl),
         headers: {"Content-type": "application/json"},
@@ -95,7 +93,6 @@ class _RoomScreenState extends State<RoomScreen> {
           "created": null,
           "properties": {"state": theElement.moreAttributes['state']}
         }));
-    //print(result.body);
   }
 
   Future<List<Elementt>> getRoomElements(String userEmail) async {
@@ -266,9 +263,6 @@ class _RoomScreenState extends State<RoomScreen> {
     var airConditionerSwitch = new Switch(
       value: airConditionerSwitchVal,
       onChanged: (newVal) async {
-        /*_theAirConditioner = await getElement(
-            theUser.userEmail, theRoom.moreAttributes['air conditioner']);*/
-        //onSwitchValueChanged(newVal, _theAirConditioner);
         setState(() {
           airConditionerSwitchVal = newVal;
           elementOnOff(_theAirConditioner);

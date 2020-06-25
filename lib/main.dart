@@ -20,10 +20,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    /*ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 750, height: 1334, allowFontScaling: true);*/
-    //return new Scaffold();
     var materialApp = MaterialApp(
       title: 'smartSpace',
       debugShowCheckedModeBanner: false,
