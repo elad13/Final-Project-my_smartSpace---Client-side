@@ -264,6 +264,12 @@ class _RoomScreenState extends State<RoomScreen> {
       value: airConditionerSwitchVal,
       onChanged: (newVal) async {
         setState(() {
+          /*if (airConditionerSwitchVal == true) {
+            airConditionerSwitchVal = newVal;
+            elementOnOff(_theAirConditioner);
+          } else {
+            airConditionerSwitchVal = newVal;
+          }*/
           airConditionerSwitchVal = newVal;
           elementOnOff(_theAirConditioner);
         });
